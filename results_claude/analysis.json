@@ -1,0 +1,94 @@
+{
+  "summary": {
+    "arithmetic_verification__baseline": {
+      "accuracy": 0.7,
+      "std": 0.46291004988627565,
+      "n": 50
+    },
+    "arithmetic_verification__constraint": {
+      "accuracy": 0.6,
+      "std": 0.49487165930539356,
+      "n": 50
+    },
+    "arithmetic_verification__self_monitor": {
+      "accuracy": 0.98,
+      "std": 0.1414213562373095,
+      "n": 50
+    },
+    "logic_generation__baseline": {
+      "accuracy": 0.64,
+      "std": 0.48487322138506117,
+      "n": 50
+    },
+    "logic_generation__constraint": {
+      "accuracy": 0.34,
+      "std": 0.47851812069840644,
+      "n": 50
+    },
+    "logic_generation__self_monitor": {
+      "accuracy": 0.32,
+      "std": 0.47121207149916117,
+      "n": 50
+    }
+  },
+  "cell_means": {
+    "baseline": {
+      "arithmetic_verification": 0.7,
+      "logic_generation": 0.64
+    },
+    "constraint": {
+      "arithmetic_verification": 0.6,
+      "logic_generation": 0.34
+    },
+    "self_monitor": {
+      "arithmetic_verification": 0.98,
+      "logic_generation": 0.32
+    }
+  },
+  "tests": {
+    "selfmon_on_arithmetic": {
+      "baseline_acc": 0.7,
+      "scaffold_acc": 0.98,
+      "improvement": 0.28,
+      "t_stat": 4.090440968535442,
+      "p_value": 8.837765198493328e-05,
+      "cohens_d": 0.6048691318514003,
+      "prediction": "Large improvement expected (verification deficit)",
+      "is_crossed": false
+    },
+    "constraint_on_logic": {
+      "baseline_acc": 0.64,
+      "scaffold_acc": 0.34,
+      "improvement": -0.3,
+      "t_stat": -3.113931585768115,
+      "p_value": 0.0024206248709707674,
+      "cohens_d": -0.6187184335382291,
+      "prediction": "Large improvement expected (generation deficit)",
+      "is_crossed": false
+    },
+    "selfmon_on_logic_CROSSED": {
+      "baseline_acc": 0.64,
+      "scaffold_acc": 0.32,
+      "improvement": -0.32,
+      "t_stat": -3.3466401061363023,
+      "p_value": 0.0011609690922047987,
+      "cohens_d": -0.6599663291074445,
+      "prediction": "Small or null effect expected (wrong scaffold)",
+      "is_crossed": true
+    },
+    "constraint_on_arithmetic_CROSSED": {
+      "baseline_acc": 0.7,
+      "scaffold_acc": 0.6,
+      "improvement": -0.09999999999999998,
+      "t_stat": -1.0434983894999015,
+      "p_value": 0.2992847935931316,
+      "cohens_d": -0.21602468994692864,
+      "prediction": "Small or null effect expected (wrong scaffold)",
+      "is_crossed": true
+    }
+  },
+  "interaction": {
+    "matched_mean_improvement": -0.009999999999999981,
+    "crossed_mean_improvement": -0.21,
+    "difference": 0.2,
+    "prediction_confirmed": 

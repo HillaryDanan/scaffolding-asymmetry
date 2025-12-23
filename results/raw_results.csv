@@ -1,0 +1,967 @@
+task_type,scaffold,correct,prompt,response,trigger,has_cat,has_dog,word_count,expected,difficulty,has_3_letter,has_6_letter,expected_word_count,rules,first_letter,last_letter,base_count,bonus,sentence_count,expected_format,vowel_count,consonant_count,has_number,has_question,conditions_true
+logic_generation,baseline,True,"Here are the rules for responding:
+- IF the prompt contains the word ""cat"" THEN:
+    - IF it ALSO contains ""dog"" → respond with exactly: ""BOTH""
+    - ELSE → respond with exactly: ""CAT ONLY""
+- ELSE IF the prompt contains ""dog"" (but not ""cat"") → respond with exactly: ""DOG ONLY""
+- ELSE → respond with the exact NUMBER of words in the prompt (just the number)
+
+The prompt is: ""Both the cat and dog are sleeping""
+
+What is your response? Give ONLY your response, nothing else.",BOTH,Both the cat and dog are sleeping,True,True,7,BOTH,nested_conditional,,,,,,,,,,,,,,,
+logic_generation,baseline,False,"Here are the rules for responding:
+- If the prompt contains BOTH a 3-letter word AND a 6-letter word, respond with EXACTLY 2 words.
+- If the prompt contains a 3-letter word but NO 6-letter word, respond with EXACTLY 7 words.
+- If the prompt contains a 6-letter word but NO 3-letter word, respond with EXACTLY 1 word.
+- If the prompt contains NEITHER a 3-letter word NOR a 6-letter word, respond with exactly: ""BANANA THUNDERSTORM""
+
+The prompt is: ""Before from between first made their.""
+
+What is your response? Give ONLY your response, nothing else.",BANANA THUNDERSTORM,Before from between first made their.,,,,,word_length_conditional,False,True,1,"{(True, True): 2, (True, False): 7, (False, True): 1, (False, False): 'BANANA THUNDERSTORM'}",,,,,,,,,,,
+logic_generation,baseline,False,"Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Hidden gem is perfect""
+
+What is your response? Give ONLY your response, nothing else.",Five words: truly a must-see destination.,Hidden gem is perfect,,,,,position_letter_rule,,,3,,H,t,3,0,,,,,,,
+logic_generation,baseline,False,"Here are the rules for responding:
+- If the prompt contains BOTH a 3-letter word AND a 6-letter word, respond with EXACTLY 3 words.
+- If the prompt contains a 3-letter word but NO 6-letter word, respond with EXACTLY 6 words.
+- If the prompt contains a 6-letter word but NO 3-letter word, respond with EXACTLY 1 word.
+- If the prompt contains NEITHER a 3-letter word NOR a 6-letter word, respond with exactly: ""BANANA THUNDERSTORM""
+
+The prompt is: ""Call important made which other cup.""
+
+What is your response? Give ONLY your response, nothing else.",SAM POND YELL KNIT FAST,Call important made which other cup.,,,,,word_length_conditional,True,False,6,"{(True, True): 3, (True, False): 6, (False, True): 1, (False, False): 'BANANA THUNDERSTORM'}",,,,,,,,,,,
+logic_generation,baseline,False,"Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Yellow sun is perfect""
+
+What is your response? Give ONLY your response, nothing else.",Bright and warm.,Yellow sun is perfect,,,,,position_letter_rule,,,5,,Y,t,5,0,,,,,,,
+logic_generation,baseline,True,"Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Apple pie is elegant""
+
+What is your response? Give ONLY your response, nothing else.",Delicious treat indeed.,Apple pie is elegant,,,,,position_letter_rule,,,3,,A,t,3,0,,,,,,,
+logic_generation,baseline,True,"Here are the rules for responding:
+- Count the sentences (separated by . ! or ?) and words in the prompt.
+- If 1 sentence AND fewer than 10 words → respond in ALL CAPITALS
+- If 1 sentence AND 10 or more words → respond in all lowercase
+- If 2 or more sentences AND odd total word count → respond with a question (end with ?)
+- If 2 or more sentences AND even total word count → respond with an exclamation (end with !)
+
+The prompt is: ""Time moves forward""
+
+What is your response? Give ONLY your response, nothing else.",TIME MOVES FORWARD!,Time moves forward,,,3,,sentence_word_rule,,,,,,,,,1,ALL_CAPS,,,,,
+logic_generation,baseline,False,"Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Never stop is home""
+
+What is your response? Give ONLY your response, nothing else.",Time to rest.,Never stop is home,,,,,position_letter_rule,,,7,,N,e,5,2,,,,,,,
+logic_generation,baseline,False,"Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Cats hunt prey""
+
+What is your response? Give ONLY your response, nothing else.",Interesting.,Cats hunt prey,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_consonant,3,9,,,
+logic_generation,baseline,True,"Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Great idea is perfect""
+
+What is your response? Give ONLY your response, nothing else.",Wonderful concept indeed!,Great idea is perfect,,,,,position_letter_rule,,,3,,G,t,3,0,,,,,,,
+logic_generation,baseline,True,"Here are the rules for responding:
+- Count the sentences (separated by . ! or ?) and words in the prompt.
+- If 1 sentence AND fewer than 10 words → respond in ALL CAPITALS
+- If 1 sentence AND 10 or more words → respond in all lowercase
+- If 2 or more sentences AND odd total word count → respond with a question (end with ?)
+- If 2 or more sentences AND even total word count → respond with an exclamation (end with !)
+
+The prompt is: ""Cats sleep. Dogs bark. Birds sing. Fish swim.""
+
+What is your response? Give ONLY your response, nothing else.",!,Cats sleep. Dogs bark. Birds sing. Fish swim.,,,8,,sentence_word_rule,,,,,,,,,4,exclamation,,,,,
+logic_generation,baseline,False,"Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Soft wind is smooth""
+
+What is your response? Give ONLY your response, nothing else.",Seven words are needed for this prompt.,Soft wind is smooth,,,,,position_letter_rule,,,5,,S,h,5,0,,,,,,,
+logic_generation,baseline,True,"Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Aria eats a banana""
+
+What is your response? Give ONLY your response, nothing else.",Enjoy.,Aria eats a banana,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_vowel,9,6,,,
+logic_generation,baseline,True,"Here are the rules for responding:
+- IF the prompt contains the word ""cat"" THEN:
+    - IF it ALSO contains ""dog"" → respond with exactly: ""BOTH""
+    - ELSE → respond with exactly: ""CAT ONLY""
+- ELSE IF the prompt contains ""dog"" (but not ""cat"") → respond with exactly: ""DOG ONLY""
+- ELSE → respond with the exact NUMBER of words in the prompt (just the number)
+
+The prompt is: ""My cat loves to nap all day""
+
+What is your response? Give ONLY your response, nothing else.",CAT ONLY,My cat loves to nap all day,True,False,7,CAT ONLY,nested_conditional,,,,,,,,,,,,,,,
+logic_generation,baseline,True,"Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Crypts lynx nymphs""
+
+What is your response? Give ONLY your response, nothing else.",Balance,Crypts lynx nymphs,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_consonant,0,16,,,
+logic_generation,baseline,False,"Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Great idea is banana""
+
+What is your response? Give ONLY your response, nothing else.",Seven words are required for my response.,Great idea is banana,,,,,position_letter_rule,,,5,,G,a,3,2,,,,,,,
+logic_generation,baseline,False,"Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Many birds is perfect""
+
+What is your response? Give ONLY your response, nothing else.",Five birds perch elegantly.,Many birds is perfect,,,,,position_letter_rule,,,3,,M,t,3,0,,,,,,,
+logic_generation,baseline,False,"Here are the rules for responding:
+- If the prompt contains BOTH a 3-letter word AND a 6-letter word, respond with EXACTLY 2 words.
+- If the prompt contains a 3-letter word but NO 6-letter word, respond with EXACTLY 8 words.
+- If the prompt contains a 6-letter word but NO 3-letter word, respond with EXACTLY 1 word.
+- If the prompt contains NEITHER a 3-letter word NOR a 6-letter word, respond with exactly: ""BANANA THUNDERSTORM""
+
+The prompt is: ""Water they children there cat from.""
+
+What is your response? Give ONLY your response, nothing else.",Absolutely correct!,Water they children there cat from.,,,,,word_length_conditional,True,False,8,"{(True, True): 2, (True, False): 8, (False, True): 1, (False, False): 'BANANA THUNDERSTORM'}",,,,,,,,,,,
+logic_generation,baseline,True,"Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Trysts glyph synths""
+
+What is your response? Give ONLY your response, nothing else.",Glyphs,Trysts glyph synths,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_consonant,0,17,,,
+logic_generation,baseline,True,"Here are the rules for responding:
+- Count the sentences (separated by . ! or ?) and words in the prompt.
+- If 1 sentence AND fewer than 10 words → respond in ALL CAPITALS
+- If 1 sentence AND 10 or more words → respond in all lowercase
+- If 2 or more sentences AND odd total word count → respond with a question (end with ?)
+- If 2 or more sentences AND even total word count → respond with an exclamation (end with !)
+
+The prompt is: ""Many different colorful birds fly through the bright sunny sky daily""
+
+What is your response? Give ONLY your response, nothing else.",many different colorful birds fly through the bright sunny sky daily.,Many different colorful birds fly through the bright sunny sky daily,,,11,,sentence_word_rule,,,,,,,,,1,all_lowercase,,,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""True love is invite""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Only three words.,True love is invite,,,,,position_letter_rule,,,7,,T,e,5,2,,,,,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- If the prompt contains BOTH a 3-letter word AND a 6-letter word, respond with EXACTLY 3 words.
+- If the prompt contains a 3-letter word but NO 6-letter word, respond with EXACTLY 7 words.
+- If the prompt contains a 6-letter word but NO 3-letter word, respond with EXACTLY 1 word.
+- If the prompt contains NEITHER a 3-letter word NOR a 6-letter word, respond with exactly: ""BANANA THUNDERSTORM""
+
+The prompt is: ""This children other about number call father hat.""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",BANANA THUNDERSTORM,This children other about number call father hat.,,,,,word_length_conditional,True,True,3,"{(True, True): 3, (True, False): 7, (False, True): 1, (False, False): 'BANANA THUNDERSTORM'}",,,,,,,,,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+Check these three conditions about the prompt:
+- Condition A: Does it contain a number?
+- Condition B: Does it contain a question mark?
+- Condition C: Does it have more than 5 words?
+
+Based on how many conditions are TRUE:
+- If 0 conditions are true → respond with exactly: ""NONE""
+- If 1 condition is true → respond with exactly 1 word
+- If 2 conditions are true → respond with exactly 2 words
+- If 3 conditions are true → respond with exactly 3 words
+
+The prompt is: ""The quick brown fox jumps over 31.""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",ONE condition true,The quick brown fox jumps over 31.,,,6,2,compound_conditional,,,,,,,,,,,,,True,False,2
+logic_generation,self_monitor,True,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Eau de vie au revoir""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Eleven.,Eau de vie au revoir,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_vowel,11,5,,,
+logic_generation,self_monitor,True,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Help mend that""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Consonant,Help mend that,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_consonant,3,9,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Help mend that""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Okay.,Help mend that,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_consonant,3,9,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Lovely day is perfect""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Seven words.,Lovely day is perfect,,,,,position_letter_rule,,,3,,L,t,3,0,,,,,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- Count the sentences (separated by . ! or ?) and words in the prompt.
+- If 1 sentence AND fewer than 10 words → respond in ALL CAPITALS
+- If 1 sentence AND 10 or more words → respond in all lowercase
+- If 2 or more sentences AND odd total word count → respond with a question (end with ?)
+- If 2 or more sentences AND even total word count → respond with an exclamation (end with !)
+
+The prompt is: ""Hello there. How are you. I hope well.""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",How is everything?,Hello there. How are you. I hope well.,,,8,,sentence_word_rule,,,,,,,,,3,exclamation,,,,,
+logic_generation,self_monitor,True,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+Check these three conditions about the prompt:
+- Condition A: Does it contain a number?
+- Condition B: Does it contain a question mark?
+- Condition C: Does it have more than 5 words?
+
+Based on how many conditions are TRUE:
+- If 0 conditions are true → respond with exactly: ""NONE""
+- If 1 condition is true → respond with exactly 1 word
+- If 2 conditions are true → respond with exactly 2 words
+- If 3 conditions are true → respond with exactly 3 words
+
+The prompt is: ""The quick brown fox jumps over?""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Two words,The quick brown fox jumps over?,,,6,2,compound_conditional,,,,,,,,,,,,,False,True,2
+logic_generation,self_monitor,True,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+Check these three conditions about the prompt:
+- Condition A: Does it contain a number?
+- Condition B: Does it contain a question mark?
+- Condition C: Does it have more than 5 words?
+
+Based on how many conditions are TRUE:
+- If 0 conditions are true → respond with exactly: ""NONE""
+- If 1 condition is true → respond with exactly 1 word
+- If 2 conditions are true → respond with exactly 2 words
+- If 3 conditions are true → respond with exactly 3 words
+
+The prompt is: ""The quick brown fox jumps over 66?""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Two conditions true.,The quick brown fox jumps over 66?,,,6,3,compound_conditional,,,,,,,,,,,,,True,True,3
+logic_generation,self_monitor,True,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Bold step next""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Carefully.,Bold step next,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_consonant,3,9,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- If the prompt contains BOTH a 3-letter word AND a 6-letter word, respond with EXACTLY 2 words.
+- If the prompt contains a 3-letter word but NO 6-letter word, respond with EXACTLY 7 words.
+- If the prompt contains a 6-letter word but NO 3-letter word, respond with EXACTLY 1 word.
+- If the prompt contains NEITHER a 3-letter word NOR a 6-letter word, respond with exactly: ""BANANA THUNDERSTORM""
+
+The prompt is: ""Have their before thought would with.""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",BANANA THUNDERSTORM,Have their before thought would with.,,,,,word_length_conditional,False,True,1,"{(True, True): 2, (True, False): 7, (False, True): 1, (False, False): 'BANANA THUNDERSTORM'}",,,,,,,,,,,
+logic_generation,self_monitor,True,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- IF the prompt contains the word ""cat"" THEN:
+    - IF it ALSO contains ""dog"" → respond with exactly: ""BOTH""
+    - ELSE → respond with exactly: ""CAT ONLY""
+- ELSE IF the prompt contains ""dog"" (but not ""cat"") → respond with exactly: ""DOG ONLY""
+- ELSE → respond with the exact NUMBER of words in the prompt (just the number)
+
+The prompt is: ""My cat chased the dog around""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",BOTH,My cat chased the dog around,True,True,6,BOTH,nested_conditional,,,,,,,,,,,,,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- If the prompt contains BOTH a 3-letter word AND a 6-letter word, respond with EXACTLY 3 words.
+- If the prompt contains a 3-letter word but NO 6-letter word, respond with EXACTLY 6 words.
+- If the prompt contains a 6-letter word but NO 3-letter word, respond with EXACTLY 1 word.
+- If the prompt contains NEITHER a 3-letter word NOR a 6-letter word, respond with exactly: ""BANANA THUNDERSTORM""
+
+The prompt is: ""Cat they which big made children water.""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Three words response.,Cat they which big made children water.,,,,,word_length_conditional,True,False,6,"{(True, True): 3, (True, False): 6, (False, True): 1, (False, False): 'BANANA THUNDERSTORM'}",,,,,,,,,,,
+logic_generation,self_monitor,True,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+Check these three conditions about the prompt:
+- Condition A: Does it contain a number?
+- Condition B: Does it contain a question mark?
+- Condition C: Does it have more than 5 words?
+
+Based on how many conditions are TRUE:
+- If 0 conditions are true → respond with exactly: ""NONE""
+- If 1 condition is true → respond with exactly 1 word
+- If 2 conditions are true → respond with exactly 2 words
+- If 3 conditions are true → respond with exactly 3 words
+
+The prompt is: ""Hello there?""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",NONE,Hello there?,,,2,1,compound_conditional,,,,,,,,,,,,,False,True,1
+logic_generation,self_monitor,True,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- IF the prompt contains the word ""cat"" THEN:
+    - IF it ALSO contains ""dog"" → respond with exactly: ""BOTH""
+    - ELSE → respond with exactly: ""CAT ONLY""
+- ELSE IF the prompt contains ""dog"" (but not ""cat"") → respond with exactly: ""DOG ONLY""
+- ELSE → respond with the exact NUMBER of words in the prompt (just the number)
+
+The prompt is: ""A fluffy cat jumped over the fence""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",CAT ONLY,A fluffy cat jumped over the fence,True,False,7,CAT ONLY,nested_conditional,,,,,,,,,,,,,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Many birds is home""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Seven words required.,Many birds is home,,,,,position_letter_rule,,,5,,M,e,3,2,,,,,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Quiet night is home""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Five words.,Quiet night is home,,,,,position_letter_rule,,,7,,Q,e,5,2,,,,,,,
+logic_generation,self_monitor,False,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+- Count the sentences (separated by . ! or ?) and words in the prompt.
+- If 1 sentence AND fewer than 10 words → respond in ALL CAPITALS
+- If 1 sentence AND 10 or more words → respond in all lowercase
+- If 2 or more sentences AND odd total word count → respond with a question (end with ?)
+- If 2 or more sentences AND even total word count → respond with an exclamation (end with !)
+
+The prompt is: ""Stop now. Think carefully. Act wisely.""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",Is everything clear?,Stop now. Think carefully. Act wisely.,,,6,,sentence_word_rule,,,,,,,,,3,exclamation,,,,,
+logic_generation,self_monitor,True,"Before answering, I want you to:
+1. Work through the problem step by step
+2. State what value you computed
+3. Hold that value in mind
+4. Then check it against what's being asked
+5. Only then give your final answer
+
+Here are the rules for responding:
+Check these three conditions about the prompt:
+- Condition A: Does it contain a number?
+- Condition B: Does it contain a question mark?
+- Condition C: Does it have more than 5 words?
+
+Based on how many conditions are TRUE:
+- If 0 conditions are true → respond with exactly: ""NONE""
+- If 1 condition is true → respond with exactly 1 word
+- If 2 conditions are true → respond with exactly 2 words
+- If 3 conditions are true → respond with exactly 3 words
+
+The prompt is: ""The quick brown fox jumps over.""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: compute, hold, check, then answer.",NONE,The quick brown fox jumps over.,,,6,1,compound_conditional,,,,,,,,,,,,,False,False,1
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- IF the prompt contains the word ""cat"" THEN:
+    - IF it ALSO contains ""dog"" → respond with exactly: ""BOTH""
+    - ELSE → respond with exactly: ""CAT ONLY""
+- ELSE IF the prompt contains ""dog"" (but not ""cat"") → respond with exactly: ""DOG ONLY""
+- ELSE → respond with the exact NUMBER of words in the prompt (just the number)
+
+The prompt is: ""Both the cat and dog are sleeping""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",BOTH,Both the cat and dog are sleeping,True,True,7,BOTH,nested_conditional,,,,,,,,,,,,,,,
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- IF the prompt contains the word ""cat"" THEN:
+    - IF it ALSO contains ""dog"" → respond with exactly: ""BOTH""
+    - ELSE → respond with exactly: ""CAT ONLY""
+- ELSE IF the prompt contains ""dog"" (but not ""cat"") → respond with exactly: ""DOG ONLY""
+- ELSE → respond with the exact NUMBER of words in the prompt (just the number)
+
+The prompt is: ""My dog loves to fetch tennis balls""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",DOG ONLY,My dog loves to fetch tennis balls,False,True,7,DOG ONLY,nested_conditional,,,,,,,,,,,,,,,
+logic_generation,constraint,False,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+Check these three conditions about the prompt:
+- Condition A: Does it contain a number?
+- Condition B: Does it contain a question mark?
+- Condition C: Does it have more than 5 words?
+
+Based on how many conditions are TRUE:
+- If 0 conditions are true → respond with exactly: ""NONE""
+- If 1 condition is true → respond with exactly 1 word
+- If 2 conditions are true → respond with exactly 2 words
+- If 3 conditions are true → respond with exactly 3 words
+
+The prompt is: ""Hello there?""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",Two words,Hello there?,,,2,1,compound_conditional,,,,,,,,,,,,,False,True,1
+logic_generation,constraint,False,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- If the prompt contains BOTH a 3-letter word AND a 6-letter word, respond with EXACTLY 4 words.
+- If the prompt contains a 3-letter word but NO 6-letter word, respond with EXACTLY 6 words.
+- If the prompt contains a 6-letter word but NO 3-letter word, respond with EXACTLY 1 word.
+- If the prompt contains NEITHER a 3-letter word NOR a 6-letter word, respond with exactly: ""BANANA THUNDERSTORM""
+
+The prompt is: ""They this little father there sun their run through.""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",BANANA THUNDERSTORM,They this little father there sun their run through.,,,,,word_length_conditional,True,True,4,"{(True, True): 4, (True, False): 6, (False, True): 1, (False, False): 'BANANA THUNDERSTORM'}",,,,,,,,,,,
+logic_generation,constraint,False,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Many birds is constant""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",Five words are needed here.,Many birds is constant,,,,,position_letter_rule,,,3,,M,t,3,0,,,,,,,
+logic_generation,constraint,False,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Quiet night is constant""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",Seven words needed.,Quiet night is constant,,,,,position_letter_rule,,,5,,Q,t,5,0,,,,,,,
+logic_generation,constraint,False,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+Check these three conditions about the prompt:
+- Condition A: Does it contain a number?
+- Condition B: Does it contain a question mark?
+- Condition C: Does it have more than 5 words?
+
+Based on how many conditions are TRUE:
+- If 0 conditions are true → respond with exactly: ""NONE""
+- If 1 condition is true → respond with exactly 1 word
+- If 2 conditions are true → respond with exactly 2 words
+- If 3 conditions are true → respond with exactly 3 words
+
+The prompt is: ""Hello there?""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",one word,Hello there?,,,2,1,compound_conditional,,,,,,,,,,,,,False,True,1
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+Check these three conditions about the prompt:
+- Condition A: Does it contain a number?
+- Condition B: Does it contain a question mark?
+- Condition C: Does it have more than 5 words?
+
+Based on how many conditions are TRUE:
+- If 0 conditions are true → respond with exactly: ""NONE""
+- If 1 condition is true → respond with exactly 1 word
+- If 2 conditions are true → respond with exactly 2 words
+- If 3 conditions are true → respond with exactly 3 words
+
+The prompt is: ""The quick brown fox jumps over 94.""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",1 condition true,The quick brown fox jumps over 94.,,,6,2,compound_conditional,,,,,,,,,,,,,True,False,2
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Crypts lynx nymphs""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",Glyph,Crypts lynx nymphs,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_consonant,0,16,,,
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- If the prompt contains BOTH a 3-letter word AND a 6-letter word, respond with EXACTLY 2 words.
+- If the prompt contains a 3-letter word but NO 6-letter word, respond with EXACTLY 7 words.
+- If the prompt contains a 6-letter word but NO 3-letter word, respond with EXACTLY 1 word.
+- If the prompt contains NEITHER a 3-letter word NOR a 6-letter word, respond with exactly: ""BANANA THUNDERSTORM""
+
+The prompt is: ""Call another other they sound before should cup the.""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",understanding complete,Call another other they sound before should cup the.,,,,,word_length_conditional,True,True,2,"{(True, True): 2, (True, False): 7, (False, True): 1, (False, False): 'BANANA THUNDERSTORM'}",,,,,,,,,,,
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+Check these three conditions about the prompt:
+- Condition A: Does it contain a number?
+- Condition B: Does it contain a question mark?
+- Condition C: Does it have more than 5 words?
+
+Based on how many conditions are TRUE:
+- If 0 conditions are true → respond with exactly: ""NONE""
+- If 1 condition is true → respond with exactly 1 word
+- If 2 conditions are true → respond with exactly 2 words
+- If 3 conditions are true → respond with exactly 3 words
+
+The prompt is: ""The quick brown fox jumps over?""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",two conditions,The quick brown fox jumps over?,,,6,2,compound_conditional,,,,,,,,,,,,,False,True,2
+logic_generation,constraint,False,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Purple rain is invite""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",Seven words needed as response.,Purple rain is invite,,,,,position_letter_rule,,,7,,P,e,5,2,,,,,,,
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- Count the sentences (separated by . ! or ?) and words in the prompt.
+- If 1 sentence AND fewer than 10 words → respond in ALL CAPITALS
+- If 1 sentence AND 10 or more words → respond in all lowercase
+- If 2 or more sentences AND odd total word count → respond with a question (end with ?)
+- If 2 or more sentences AND even total word count → respond with an exclamation (end with !)
+
+The prompt is: ""The quick brown fox jumps over the lazy sleeping dog today""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",the quick brown fox jumps over the lazy sleeping dog today,The quick brown fox jumps over the lazy sleeping dog today,,,11,,sentence_word_rule,,,,,,,,,1,all_lowercase,,,,,
+logic_generation,constraint,False,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Lovely day is elegant""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",Five words.,Lovely day is elegant,,,,,position_letter_rule,,,3,,L,t,3,0,,,,,,,
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Purple rain is bright""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",Five words only are required.,Purple rain is bright,,,,,position_letter_rule,,,5,,P,t,5,0,,,,,,,
+logic_generation,constraint,False,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Cats hunt prey""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",Okay.,Cats hunt prey,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_consonant,3,9,,,
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- IF the prompt contains the word ""cat"" THEN:
+    - IF it ALSO contains ""dog"" → respond with exactly: ""BOTH""
+    - ELSE → respond with exactly: ""CAT ONLY""
+- ELSE IF the prompt contains ""dog"" (but not ""cat"") → respond with exactly: ""DOG ONLY""
+- ELSE → respond with the exact NUMBER of words in the prompt (just the number)
+
+The prompt is: ""The cat and dog played together""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",BOTH,The cat and dog played together,True,True,6,BOTH,nested_conditional,,,,,,,,,,,,,,,
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- IF the prompt contains the word ""cat"" THEN:
+    - IF it ALSO contains ""dog"" → respond with exactly: ""BOTH""
+    - ELSE → respond with exactly: ""CAT ONLY""
+- ELSE IF the prompt contains ""dog"" (but not ""cat"") → respond with exactly: ""DOG ONLY""
+- ELSE → respond with the exact NUMBER of words in the prompt (just the number)
+
+The prompt is: ""A fluffy cat jumped over the fence""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",CAT ONLY,A fluffy cat jumped over the fence,True,False,7,CAT ONLY,nested_conditional,,,,,,,,,,,,,,,
+logic_generation,constraint,False,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- Look at the FIRST letter of the prompt and the LAST letter of the prompt.
+- If the first letter is A through M → your base word count is 3
+- If the first letter is N through Z → your base word count is 5
+- HOWEVER: If the last letter is a vowel (a,e,i,o,u) → ADD 2 to your word count
+- Respond with EXACTLY that many words.
+
+The prompt is: ""Yellow sun is smooth""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",Seven words are required due to calculation.,Yellow sun is smooth,,,,,position_letter_rule,,,5,,Y,h,5,0,,,,,,,
+logic_generation,constraint,True,"Before answering, I want you to:
+1. List all the constraints/conditions that must be checked
+2. Check each condition one by one, noting the result
+3. Determine which rule applies based on ALL your checks
+4. Only output an answer after confirming which rule applies
+
+Here are the rules for responding:
+- Count the vowels (a, e, i, o, u) and consonants in the prompt.
+- If there are MORE vowels than consonants → your response must START with a vowel (a, e, i, o, u)
+- If there are MORE consonants than vowels → your response must START with a consonant
+- If there are EQUAL vowels and consonants → respond with EXACTLY one word
+
+The prompt is: ""Bold step next""
+
+What is your response? Give ONLY your response, nothing else.
+
+Remember: list conditions, check each one, determine rule, then answer.",Step,Bold step next,,,,,vowel_consonant_rule,,,,,,,,,,starts_with_consonant,3,9,,,
