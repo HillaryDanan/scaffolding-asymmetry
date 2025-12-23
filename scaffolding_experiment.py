@@ -946,17 +946,29 @@ def save_results(results: List[TrialResult], analysis: Dict, output_dir: str = "
     summary_dict = {}
     for (task, scaffold), row in analysis['summary'].iterrows():
         key = f"{task}__{scaffold}"
-        summary_dict[key] = {'accuracy': row['accuracy'], 'std': row['std'], 'n': int(row['n'])}
+        summary_dict[key] = {'accuracy': float(row['accuracy']), 'std': float(row['std']), 'n': int(row['n'])}
+    
+    # Convert numpy types to native Python types
+    def convert_to_serializable(obj):
+        if isinstance(obj, (np.bool_, bool)):
+            return bool(obj)
+        elif isinstance(obj, (np.integer, int)):
+            return int(obj)
+        elif isinstance(obj, (np.floating, float)):
+            return float(obj)
+        elif isinstance(obj, dict):
+            return {k: convert_to_serializable(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [convert_to_serializable(v) for v in obj]
+        return obj
     
     with open(f"{output_dir}/analysis.json", 'w') as f:
-        json.dump({
+        json.dump(convert_to_serializable({
             'summary': summary_dict,
             'cell_means': analysis['cell_means'].to_dict(),
             'tests': analysis['tests'],
             'interaction': analysis.get('interaction', {})
-        }, f, indent=2)
-    
-    print(f"\nResults saved to {output_dir}/")
+        }), f, indent=2)
     
     print(f"\nResults saved to {output_dir}/")
 

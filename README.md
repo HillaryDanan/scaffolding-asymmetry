@@ -1,91 +1,154 @@
-# Scaffolding Asymmetry Experiment
+# Scaffolding Asymmetry
 
-**Testing predictions from "The Geometry of Self-Reference" (Danan, 2025)**
+**Task-specific scaffolding effects in large language models: Evidence for dissociable generation and verification deficits.**
 
-## The Prediction
+---
 
-The geometric framework predicts **task-specific scaffold effects**:
+## The Finding
 
-| Task Type | Known Deficit | Best Scaffold | Why |
-|-----------|--------------|---------------|-----|
-| Arithmetic Verification | Verification deficit | Self-monitoring | Helps HOLD computed value while checking |
-| Logic Generation | Generation deficit | Constraint-checking | Helps CHECK constraints before committing |
+Self-monitoring scaffolds dramatically improve verification (+28%, p<.001), but **all scaffolding degrades generation**. Crossed scaffold-task pairings hurt worst.
 
-**Crossed scaffolds should show smaller effects.**
+| | Self-Monitor | Constraint |
+|---|---|---|
+| **Arithmetic (Verification)** | ✅ +28% | ❌ -10% |
+| **Logic (Generation)** | ❌ -32% | ❌ -30% |
 
-This is Prediction 2 from the paper. The simpler "working memory" account predicts uniform effects. The geometric account predicts an **interaction**.
+*Claude Sonnet 4, N=50 per cell*
 
-## Design
+---
 
-```
-                    Scaffold Type
-                    ─────────────────────────────────────
-                    Baseline    Self-Monitor    Constraint
-Task Type
-─────────────────
-Arithmetic           base_A      ↑↑ MATCHED      crossed
-Verification
+## Why This Matters
 
-Logic                base_L      crossed         ↑↑ MATCHED
-Generation
-```
+LLMs have **dissociable deficits**:
+- **Verification deficit**: Can compute but can't hold-and-check
+- **Generation deficit**: Can't satisfy constraints while constructing output
 
-## Run
+Scaffolding isn't uniformly helpful. It has **cognitive overhead**. When the overhead addresses the task's bottleneck → benefit. When it doesn't → cost.
+
+---
+
+## The Experiment
+
+### Tasks
+
+**Arithmetic Verification** (verification deficit):
+> "Is 17 × 24 = 408? Answer only Yes or No."
+
+**Hillary Logic™** (generation deficit):
+> "If the prompt contains BOTH a 3-letter word AND a 6-letter word, respond with EXACTLY 4 words..."
+
+Hillary Logic uses **arbitrary conditional rules** that can't be pattern-matched from training. Must actually:
+1. Check condition A (hold result)
+2. Check condition B (hold result)
+3. Apply correct rule
+4. Generate compliant response
+
+### Scaffolds
+
+**Self-Monitor**: "Compute, hold, check, then answer."
+
+**Constraint**: "List all constraints, check each one, then answer."
+
+---
+
+## Run It
 
 ```bash
-# Install dependencies
 pip install anthropic pandas scipy numpy
 
-# Run with Anthropic (default)
-python scaffolding_experiment.py --n 50
+# Full experiment (both tasks, both models)
+python scaffolding_experiment.py --n 50 --provider anthropic --output results_claude
+python scaffolding_experiment.py --n 50 --provider openai --model gpt-4o --output results_gpt4o
 
-# Run with specific model
-python scaffolding_experiment.py --n 50 --model claude-3-5-sonnet-20241022
+# Just logic tasks
+python scaffolding_experiment.py --n 50 --logic
 
-# Run with OpenAI
-pip install openai
-python scaffolding_experiment.py --n 50 --provider openai --model gpt-4
+# Just arithmetic tasks  
+python scaffolding_experiment.py --n 50 --arithmetic
 
-# Quick test run
-python scaffolding_experiment.py --n 10
+# Quick test
+python scaffolding_experiment.py --n 10 --logic
 ```
 
-## Output
+---
 
-Results saved to `results/`:
-- `raw_results.csv` — All trial data
-- `analysis.json` — Statistical analysis
+## Results
 
-## Expected Results (If Prediction Correct)
+### Claude Sonnet 4
 
-```
-### Interaction Test (Key Prediction) ###
-  Mean improvement (matched scaffolds): +15-25%
-  Mean improvement (crossed scaffolds): +0-5%
-  
-  >>> CONFIRMED: Matched scaffolds help more than crossed scaffolds <<<
-```
+| Task | Baseline | Self-Monitor | Constraint |
+|------|----------|--------------|------------|
+| Arithmetic | 70% | **98%** | 60% |
+| Logic | 64% | 32% | 34% |
 
-## Interpreting Results
+### GPT-4o
 
-| Outcome | Interpretation |
-|---------|----------------|
-| Matched >> Crossed | ✓ Supports geometric framework |
-| Matched ≈ Crossed | ✗ No interaction; simpler account suffices |
-| All scaffolds help equally | ✗ Just "prompting helps"; no task-specificity |
+| Task | Baseline | Self-Monitor | Constraint |
+|------|----------|--------------|------------|
+| Arithmetic | 88% | 90% | 66% |
+| Logic | 66% | 60% | 58% |
+
+### Key Stats
+
+- Self-monitor on arithmetic (Claude): **+28%**, t=4.09, p<.001
+- Matched scaffolds: -1% to -3% (small cost)
+- Crossed scaffolds: -14% to -21% (large cost)
+
+---
+
+## Interpretation
+
+**Cognitive Overhead Account**: Scaffolding imposes processing demands.
+
+- When demands address the bottleneck → benefit outweighs cost
+- When demands miss the bottleneck → cost dominates
+- When demands address the *wrong* bottleneck → largest cost
+
+This explains why:
+- ✅ Self-monitor helps verification (provides the hold-and-check structure)
+- ❌ All scaffolds hurt generation (adds overhead to capacity-limited process)
+- ❌❌ Crossed pairings hurt most (wrong overhead, no benefit)
+
+---
+
+## Files
+
+| File | Description |
+|------|-------------|
+| `scaffolding_experiment.py` | Full experiment code |
+| `scaffolding_asymmetry_paper.md` | Publication-ready writeup |
+| `results/` | Raw data and analysis |
+
+---
+
+## Part of the Abstraction-Intelligence Framework
+
+👉 **[Main Repository](https://github.com/HillaryDanan/abstraction-intelligence)**
+
+This experiment tests predictions from the **Abstraction Primitive Hypothesis**:
+- [The Geometry of Self-Reference](https://github.com/HillaryDanan/geometry-self-reference)
+- [Abstraction Stages Demo](https://github.com/HillaryDanan/abstraction-stages)
+
+---
 
 ## Citation
 
 ```bibtex
-@article{danan2025geometry,
-  title={The Geometry of Self-Reference: Information-Theoretic Foundations 
-         for Self-State and Metacognitive Capacity},
+@article{danan2025scaffolding,
+  title={Task-Specific Scaffolding Effects in Large Language Models: 
+         Evidence for Dissociable Generation and Verification Deficits},
   author={Danan, Hillary},
   year={2025},
-  note={Working paper}
+  url={https://github.com/HillaryDanan/scaffolding-asymmetry}
 }
 ```
 
+---
+
 ## Author
 
-Based on framework by Hillary Danan, PhD
+**Hillary Danan, PhD** · Cognitive Neuroscience
+
+---
+
+*"The data surprised us. That's how you know it's real."*
